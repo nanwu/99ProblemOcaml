@@ -3,6 +3,8 @@ type 'a binary_tree =
   | Empty
   | Node of 'a * 'a binary_tree * 'a binary_tree;;
 
+
+(* Check if a binary tree symmetric or not *)
 let is_mirror n1 n2 = 
   match n1 n2 with
   | Empty, Empty -> true
@@ -15,4 +17,6 @@ let is_symmetric root =
   | empty -> True
   | Node(_, l, r) -> is_mirror l r
 
+
+(* *)
 
