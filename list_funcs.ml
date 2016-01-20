@@ -1,17 +1,31 @@
 
-type 'a elem = Single of 'a | Multi of ('a elem list);;
+type 'a elem = One of 'a | Many of 'a elem list;;
 
 let rec flatten l = 
   match l with
   | [] -> []
-  | hd :: tl -> match hd with
-                | Single x -> x :: flatten tl
-                | Multi x -> (flatten x) @ flatten tl;;
+  | One a :: tl -> a :: flatten tl
+  | Many a :: tl -> (flatten a) @ flatten tl;;
+
+(* Eliminate consecutive duplicates of list elements. *)
+let rec compress = function
+  | a :: (b :: _ as t) -> if a = b then compress t else a :: compress t
+  | s -> s
+
+(* Pack consecutive duplicates of list elements into sublists. *)
 
 
-let node1 = Single 1;;
-let node2 = Multi [Single 2; Single 3; Single 4];;
-let node3 = Single 5;;
-let flattened = flatten [node1; node2; node3];;
-List.map print_int flattened;;
 
+(* Run-length encoding of a list *)
+let encode l = 
+  let rec aux acc count = function
+    | [] -> []
+    | [x] -> (count+1, x) :: acc
+    | x :: [y :: _ as tl] -> if x = y: aux acc (count+1) tl
+                             else (count+1, x) :: aux acc 0 tl;;
+
+let encoded = encode ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
+
+
+              
+    
