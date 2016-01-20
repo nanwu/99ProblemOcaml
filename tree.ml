@@ -18,5 +18,12 @@ let is_symmetric root =
   | Node(_, l, r) -> is_mirror l r
 
 
-(* *)
+(* Construct completely balanced binary trees. *)
+let build_tree_from 
+let rec cabl_tree n = 
+  if n = 0 then [Empty]
+  else if n mod 2  = 1 then 
+    let t = cabl_tree (n / 2) in
+    
+    | x -> if (x mod 2) = 0 then aux 
 
