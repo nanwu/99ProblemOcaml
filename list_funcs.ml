@@ -16,16 +16,35 @@ let rec compress = function
 
 
 
-(* Run-length encoding of a list *)
-let encode l = 
+(* Run-length encoding of a list let encode l = 
   let rec aux acc count = function
     | [] -> []
     | [x] -> (count+1, x) :: acc
-    | x :: [y :: _ as tl] -> if x = y: aux acc (count+1) tl
-                             else (count+1, x) :: aux acc 0 tl;;
+    | x :: [y :: _ as tl] -> if x = y then aux acc (count+1) tl
+                             else (count+1, x) :: aux acc 0 tl
+  in aux [] 0 l;;
 
 let encoded = encode ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
+*)
 
+(* Decode a run-length encoded list. *)
+let decode l = 
+    let rec span x = function
+      | 0 -> []
+      | n -> x :: span x (n-1)
+    in 
+    let rec aux = function
+      | [] -> []
+      | (n, x) :: tl -> span x n :: aux tl
+    in aux l;;
 
+(* Create a list containing all integers within a given range. *)
+let range x y = 
+  let rec aux a b = if a = b then [a] else a :: aux (a+1) b
+  in aux x y;;
+
+let x_to_y = range 1 10;;
+List.map print_int x_to_y;;
+  
               
     
