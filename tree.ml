@@ -19,11 +19,19 @@ let is_symmetric root =
 
 
 (* Construct completely balanced binary trees. *)
-let build_tree_from 
+let construct left right all =
+  let add_right_tree all l = 
+    List.fold_left (fun a r-> (Node('x', l, r ) :: a) all right 
+  in List.fold_left add_right_tree all left 
+   
+
 let rec cabl_tree n = 
   if n = 0 then [Empty]
   else if n mod 2  = 1 then 
     let t = cabl_tree (n / 2) in
-    
-    | x -> if (x mod 2) = 0 then aux 
+    construct t t
+  else 
+    let t1 = cabl_tree (n / 2) in 
+    let t2 = cabl_tree (n / 2 - 1) in 
+    construct t1 t2
 
