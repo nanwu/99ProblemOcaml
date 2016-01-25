@@ -35,3 +35,11 @@ let rec cabl_tree n =
     let t2 = cabl_tree (n / 2 - 1) in 
     construct t1 t2
 
+(* Construct a binary search tree from a list of integer numbers. *)
+let build_bst nums = 
+  let rec insert node x = match node with
+    | Empty -> Node(x, Empty, Empty)
+    | Node(y, l, r) ->  
+        if x <= y then Node(y, insert l x, r)
+        else (y, l, insert r x)
+  in List.fold_left insert Empty nums 

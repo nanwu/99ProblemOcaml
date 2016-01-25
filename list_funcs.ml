@@ -43,8 +43,6 @@ let range x y =
   let rec aux a b = if a = b then [a] else a :: aux (a+1) b
   in aux x y;;
 
-let x_to_y = range 1 10;;
-List.map print_int x_to_y;;
-  
-              
+(* Generate the combinations of K distinct objects chosen from the N elements of a list. *)
+           
     
